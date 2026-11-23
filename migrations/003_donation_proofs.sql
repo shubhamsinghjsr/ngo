@@ -1,0 +1,13 @@
+SET @ngo_proof_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_donations' AND COLUMN_NAME='payment_screenshot_path')=0, 'ALTER TABLE ngo_donations ADD COLUMN payment_screenshot_path VARCHAR(100) NULL', 'SELECT 1');
+PREPARE ngo_proof_stmt FROM @ngo_proof_sql;
+EXECUTE ngo_proof_stmt;
+DEALLOCATE PREPARE ngo_proof_stmt;
+SET @ngo_proof_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_donations' AND COLUMN_NAME='payment_screenshot_mime')=0, 'ALTER TABLE ngo_donations ADD COLUMN payment_screenshot_mime VARCHAR(100) NULL', 'SELECT 1');
+PREPARE ngo_proof_stmt FROM @ngo_proof_sql;
+EXECUTE ngo_proof_stmt;
+DEALLOCATE PREPARE ngo_proof_stmt;
+SET @ngo_proof_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_donations' AND COLUMN_NAME='payment_screenshot_name')=0, 'ALTER TABLE ngo_donations ADD COLUMN payment_screenshot_name VARCHAR(200) NULL', 'SELECT 1');
+PREPARE ngo_proof_stmt FROM @ngo_proof_sql;
+EXECUTE ngo_proof_stmt;
+DEALLOCATE PREPARE ngo_proof_stmt;
+INSERT IGNORE INTO ngo_schema_migrations (version) VALUES ('003_donation_proofs');

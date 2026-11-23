@@ -1,0 +1,15 @@
+# Private server configuration and runtime data
+.env
+.env.*
+ngo-private/
+uploads/
+*.log
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dependency caches
+node_modules/

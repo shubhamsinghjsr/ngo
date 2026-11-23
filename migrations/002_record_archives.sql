@@ -1,0 +1,17 @@
+SET @ngo_archive_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_donations' AND COLUMN_NAME='archived_at')=0, 'ALTER TABLE ngo_donations ADD COLUMN archived_at DATETIME NULL', 'SELECT 1');
+PREPARE ngo_archive_stmt FROM @ngo_archive_sql;
+EXECUTE ngo_archive_stmt;
+DEALLOCATE PREPARE ngo_archive_stmt;
+SET @ngo_archive_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_career_applications' AND COLUMN_NAME='archived_at')=0, 'ALTER TABLE ngo_career_applications ADD COLUMN archived_at DATETIME NULL', 'SELECT 1');
+PREPARE ngo_archive_stmt FROM @ngo_archive_sql;
+EXECUTE ngo_archive_stmt;
+DEALLOCATE PREPARE ngo_archive_stmt;
+SET @ngo_archive_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_volunteers' AND COLUMN_NAME='archived_at')=0, 'ALTER TABLE ngo_volunteers ADD COLUMN archived_at DATETIME NULL', 'SELECT 1');
+PREPARE ngo_archive_stmt FROM @ngo_archive_sql;
+EXECUTE ngo_archive_stmt;
+DEALLOCATE PREPARE ngo_archive_stmt;
+SET @ngo_archive_sql = IF((SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='ngo_gallery' AND COLUMN_NAME='archived_at')=0, 'ALTER TABLE ngo_gallery ADD COLUMN archived_at DATETIME NULL', 'SELECT 1');
+PREPARE ngo_archive_stmt FROM @ngo_archive_sql;
+EXECUTE ngo_archive_stmt;
+DEALLOCATE PREPARE ngo_archive_stmt;
+INSERT IGNORE INTO ngo_schema_migrations (version) VALUES ('002_record_archives');
